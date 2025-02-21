@@ -1,0 +1,38 @@
+/server
+│── /config              # Configuration files
+│   ├── db.js            # MongoDB connection setup
+│   ├── dotenv.js        # Load environment variables
+│
+│── /models              # Database models (Mongoose schemas)
+│   ├── User.js          # User model (login/signup) 
+ |	    |----- Sign Up Functions - register
+	    |----- Login Functions - login, update account details, delete account	     
+│   ├── Car.js           # Car listing model
+│   ├── Order.js         # Order (buying) model
+│
+│── /routes              # Route files for API endpoints
+│   ├── authRoutes.js    # Routes for login/signup
+│   ├── carRoutes.js     # Routes for selling cars
+│   ├── orderRoutes.js   # Routes for buying cars
+│
+│── /controllers         # Handles logic for each feature
+│   ├── authController.js # Handles login, signup, logout
+│   ├── carController.js  # Handles adding, updating, deleting cars
+│   ├── orderController.js # Handles buying cars, placing orders
+│
+│── /middlewares         # Middleware functions
+│   ├── authMiddleware.js # Protect routes using JWT authentication
+│
+│── /utils               # Utility functions
+│   ├── sendEmail.js     # Sends confirmation emails
+│   ├── hashPassword.js  # Hashes passwords securely
+│
+│── /uploads             # Stores uploaded images (if any)
+│
+│── /tests               # Contains test files for APIs
+│
+│── server.js            # Main entry file (starts the server)
+│── .env                 # Stores environment variables (DB_URL, JWT_SECRET)
+│── .gitignore           # Ignore node_modules, .env, etc.
+│── package.json         # Dependencies and scripts
+│── README.md            # Project documentation
