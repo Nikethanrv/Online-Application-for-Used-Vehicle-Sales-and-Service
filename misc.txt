@@ -1,0 +1,79 @@
+To differentiate the cars sold by the logged-in user from others in the home search page, you can add a reference to the user in your Car schema. This way, each car can be associated with a seller (the user), and you can filter cars based on the logged-in user.
+
+1️⃣ Add a user field to the Car schema
+Add a reference to the User model (or any schema you use for users) in the Car schema:
+
+javascript
+Copy
+Edit
+const carSchema = new Schema({
+    model_name: {
+        type: String
+    },
+    price: {
+        type: Number
+    },
+    mileage: {
+        type: Number
+    },
+    specs: {
+        fuel_type: { type: String },
+        transmission: { type: String }
+    },
+    seller_details: {
+        name: { type: String },
+        location: { type: String }
+    },
+    user: {
+        type: Schema.Types.ObjectId, 
+        ref: 'User', // Reference to the User schema
+        required: true
+    }
+}, { timestamps: true });
+
+2️⃣ When creating a car, associate it with the logged-in user
+When a user adds a new car for sale, you'll save the user field with the user's ObjectId:
+
+javascript
+Copy
+Edit
+const car = new Car({
+    model_name: req.body.model_name,
+    price: req.body.price,
+    mileage: req.body.mileage,
+    specs: req.body.specs,
+    seller_details: req.body.seller_details,
+    user: req.user._id // Assuming you have a way to get the logged-in user's ID (e.g., via a session or JWT)
+});
+
+await car.save();
+
+3️⃣ Show cars differently on the home page
+On the home page, you can fetch cars from the database and compare whether the car belongs to the logged-in user:
+
+javascript
+Copy
+Edit
+const userCars = await Car.find({ user: req.user._id }); // Cars posted by the logged-in user
+const otherCars = await Car.find({ user: { $ne: req.user._id } }); // Cars posted by other users
+You can then render the user’s own cars differently (e.g., by adding a "My Car" label or special styling).
+
+4️⃣ Display the cars on the home page
+While rendering the cars on the home page, you can add a condition to check whether a car belongs to the logged-in user and display it accordingly:
+
+html
+Copy
+Edit
+<% cars.forEach(car => { %>
+    <div class="car-card">
+        <h3><%= car.model_name %></h3>
+        <p>Price: $<%= car.price %></p>
+        <p>Mileage: <%= car.mileage %> km</p>
+        <p>Fuel Type: <%= car.specs.fuel_type %></p>
+        <p>Transmission: <%= car.specs.transmission %></p>
+        <% if (car.user.toString() === req.user._id.toString()) { %>
+            <p class="my-car">This is your car!</p>
+        <% } %>
+    </div>
+<% }) %>
+This way, you can clearly differentiate cars sold by the logged-in user from those sold by others.
