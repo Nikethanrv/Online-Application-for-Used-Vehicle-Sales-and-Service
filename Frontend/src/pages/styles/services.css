@@ -1,0 +1,103 @@
+/* Page Styling */
+.service-page {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 5rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.service-page h2,
+.service-page h3 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+/* Form Styling */
+.service-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.service-form select,
+.service-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.service-form input:focus,
+.service-form select:focus {
+    outline: none;
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+/* Button Styling */
+.service-form button {
+    width: 100%;
+    padding: 12px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.service-form button:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+}
+
+/* Booked Services List */
+.booked-services {
+    margin-top: 2rem;
+}
+
+.booked-services ul {
+    list-style: none;
+    padding: 0;
+}
+
+.booked-services li {
+    background: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 5px solid #e74c3c;
+}
+
+.booked-services li strong {
+    color: #2c3e50;
+}
+
+.booked-services li em {
+    color: #7f8c8d;
+}
+
+.booked-services li span {
+    background: #e74c3c;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .service-page {
+        padding: 1.5rem;
+    }
+}
