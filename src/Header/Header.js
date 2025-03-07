@@ -4,7 +4,7 @@ import './Header.css';
 
 const Header = () => {
   return (
-    <header className="header">``
+    <header className="header">
       <div className="header-container">
         {/* Brand Logo */}
         <Link to="/" className="brand">
