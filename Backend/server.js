@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 
 const user_route = require('./routes/user_route')
+const car_route = require('./routes/car_route')
 
 mongoose.connect('mongodb://localhost:27017/UsedCarsDB', {useNewUrlParser: true, useUnifiedTopology: true})
 const db = mongoose.connection
@@ -28,3 +29,4 @@ app.listen(PORT, () => {
 })
 
 app.use('/api/user', user_route)
+app.use('/api/car', car_route)

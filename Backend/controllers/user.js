@@ -1,17 +1,25 @@
 const UserProfile = require('../models/user_model')
 
 // For an user to register
-const register = (req, res, next) => {
-    UserProfile.findOne({uname: req.body.uname})
-    .then(existingUname => {
-        if(existingUname) {
+const register = (req, res) => {
+    UserProfile.findOne({email: req.body.email})
+    .then(existingEmail => {
+        if(existingEmail) {
             return res.json({
-                message: 'Username already exists'
+                message: 'Email already exists'
             })
         }
         let userProf = new UserProfile({
-            uname: req.body.uname,
-            pwd: req.body.pwd
+            full_name: req.body.full_name,
+            email: req.body.email,
+            password: req.body.password,
+            phone_number: req.body.phone_number,
+            address: {
+                street: req.body.address.street,
+                city: req.body.address.city,
+                state: req.body.address.state,
+                zip_code: req.body.zip_code
+            }
         })
         
         userProf.save()
@@ -35,7 +43,7 @@ const register = (req, res, next) => {
 
 // for user to login
 const login = (req, res, next) => {
-    UserProfile.findOne({uname: req.body.uname, pwd: req.body.pwd})
+    UserProfile.findOne({email: req.body.email, password: req.body.password})
     .then(validUser => {
         if (validUser) {
             res.json({
@@ -57,14 +65,22 @@ const login = (req, res, next) => {
 
 // for an user to update his/her account details
 const updateAcc = (req, res, next) => {
-    let uname = req.body.uname
+    let email = req.body.email
+    let password = req.body.password
     let updatedData = {
-        pwd: req.body.pwd
+        full_name: req.body.full_name,
+        phone_number: req.body.phone_number,
+        address: {
+            street: req.body.address.street,
+            city: req.body.address.city,
+            state: req.body.address.state,
+            zip_code: req.body.zip_code
+        }
     }
-    UserProfile.findOne({uname:uname})
-    .then(unameExists => {
-        if (unameExists) {
-            UserProfile.findOneAndUpdate({uname: uname}, {$set: updatedData})
+    UserProfile.findOne({email:email, password: password})
+    .then(emailExists => {
+        if (emailExists) {
+            UserProfile.findOneAndUpdate({email: email}, {$set: updatedData})
             .then(() => {
                 res.json({
                     message: "Account updated successfully"
@@ -72,26 +88,26 @@ const updateAcc = (req, res, next) => {
             })
             .catch(error => {
                 res.json({
-                    message: "An error occured"
+                    message: "An error occurred while updating the account"
                 })
             })
         }
         else {
             res.json({
-                message: "Username doesnt exist"
+                message: "Incorrect credentials"
             })
         }
     })
     .catch(error => {
         res.json({
-            message: "An error occured while checking the username"
+            message: "An error occured while checking the email and password"
         })
     })
 }
 
 // for an user to delete his/her account
 const deleteAcc = (req, res, next) => {
-    UserProfile.findOneAndDelete({uname: req.body.uname, pwd: req.body.pwd})
+    UserProfile.findOneAndDelete({email: req.body.email, password: req.body.password})
     .then(validCreds => {
         if (validCreds) {
             res.json({
