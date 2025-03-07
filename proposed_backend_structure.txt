@@ -5,20 +5,23 @@
 │
 │── /models              # Database models (Mongoose schemas)
 │   ├── User.js          # User model (login/signup) 
- |	    |----- Sign Up Functions - register
-	    |----- Login Functions - login, update account details, delete account	     
-│   ├── Car.js           # Car listing model
+ |	    |----- Sign Up Functions - register -> DONE
+	    |----- Login Functions - login, update account details, delete account	-> DONE
+│   ├── Car.js           # Car listing model -> DONE
 │   ├── Order.js         # Order (buying) model
+|	├── Service.js         # Service (for cars bought) model
 │
 │── /routes              # Route files for API endpoints
-│   ├── authRoutes.js    # Routes for login/signup
-│   ├── carRoutes.js     # Routes for selling cars
+│   ├── authRoutes.js    # Routes for login/signup -> DONE
+│   ├── carRoutes.js     # Routes for selling cars -> DONE (Except images)
 │   ├── orderRoutes.js   # Routes for buying cars
+│   ├── serviceRoutes.js   # Routes for servicing bought cars
 │
 │── /controllers         # Handles logic for each feature
-│   ├── authController.js # Handles login, signup, logout
-│   ├── carController.js  # Handles adding, updating, deleting cars
+│   ├── authController.js # Handles login, signup, logout -> DONE
+│   ├── carController.js  # Handles adding, updating, deleting cars -> DONE
 │   ├── orderController.js # Handles buying cars, placing orders
+│   ├── serviceController.js # Handles servicing bought cars
 │
 │── /middlewares         # Middleware functions
 │   ├── authMiddleware.js # Protect routes using JWT authentication
