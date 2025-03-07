@@ -1,0 +1,78 @@
+/* src/components/CarForm.css */
+.car-form-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 450px;
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    margin: 7rem auto;
+}
+
+.car-form-container h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.register-btn, .update-btn, .delete-btn {
+    flex: 1;
+    padding: 12px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.register-btn {
+    background: #2ecc71;
+    color: white;
+}
+
+.register-btn:hover {
+    background: #27ae60;
+}
+
+.update-btn {
+    background: #3498db;
+    color: white;
+}
+
+.update-btn:hover {
+    background: #2980b9;
+}
+
+.delete-btn {
+    background: #e74c3c;
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+}

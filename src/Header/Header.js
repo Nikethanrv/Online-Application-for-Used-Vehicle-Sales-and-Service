@@ -26,10 +26,9 @@ const Header = () => {
 
         {/* Navigation Links */}
         <nav className="nav-links">
-          <Link to="/sell">Sell</Link>
-          <Link to="/services">Services</Link>
           <Link to="/used-cars">Used Cars</Link>
-          <Link to="/new-cars">New Cars</Link>
+          <Link to="/sellcars">Sell Cars</Link>
+          <Link to="/services">Services</Link>
         </nav>
 
         {/* Login Button */}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Header from '../Header/Header';
 
-import './home.css';
+import './styles/home.css';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

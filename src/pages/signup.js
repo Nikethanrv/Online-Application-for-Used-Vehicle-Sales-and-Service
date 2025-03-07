@@ -1,6 +1,5 @@
-// src/pages/Signup.js
 import { Link } from 'react-router-dom';
-import './signup.css';
+import './styles/signup.css';
 
 const Signup = () => {
   return (
@@ -10,15 +9,23 @@ const Signup = () => {
         <form className="signup-form">
           <div className="form-group">
             <label>Full Name</label>
-            <input type="text" required />
+            <input type="text" name="full_name" required />
+          </div>
+          <div className="form-group">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" required />
+          </div>
+          <div className="form-group">
+            <label>Location</label>
+            <input type="text" name="location" required />
           </div>
           <div className="form-group">
             <label>Email</label>
-            <input type="email" required />
+            <input type="email" name="email" required />
           </div>
           <div className="form-group">
-            <label>Password</label>
-            <input type="password" required />
+            <label>Create Password</label>
+            <input type="password" name="password" required />
           </div>
           <button type="submit" className="signup-submit">Create Account</button>
         </form>
