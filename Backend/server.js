@@ -2,6 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
+// Since Frontend (react) and backedn (express) are running on different ports
+const cors = require('cors')
 
 const user_route = require('./routes/user_route')
 const car_route = require('./routes/car_route')
@@ -22,6 +24,7 @@ const app = express()
 app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
+app.use(cors())
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
