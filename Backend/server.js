@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-// Since Frontend (react) and backedn (express) are running on different ports
+// Since Frontend (react) and backend (express) are running on different ports
 const cors = require('cors')
 
 const user_route = require('./routes/user_route')
