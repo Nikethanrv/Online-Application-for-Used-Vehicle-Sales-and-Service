@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "./Homepage.css";
 
@@ -10,8 +10,18 @@ const Homepage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [cars, setCars] = useState([]);
   const [selectedCar, setSelectedCar] = useState(null);
-
+  // Track login status
+  const [isLoggedIn, setisLoggedIn] = useState(false)
+  
   useEffect(() => {
+    // To check if a user is logged in
+    const token = localStorage.getItem("token")
+    if (token) {
+      setisLoggedIn(true)
+    } else {
+      setisLoggedIn(false)
+    }
+
     const fetchCarData = async () => {
       try {
         let carData = [];
@@ -67,6 +77,16 @@ const Homepage = () => {
   return (
     <div className="homepage">
       <header className="header">🚗 Used Cars Marketplace</header>
+      {!isLoggedIn && (
+        <div className="auth-buttons">
+          <Link to="/signup">
+            <button>Sign Up</button>
+          </Link>
+          <Link to="/login">
+            <button>Login</button>
+          </Link>
+        </div>
+      )}
       <div className="search-bar">
         <input
           type="text"

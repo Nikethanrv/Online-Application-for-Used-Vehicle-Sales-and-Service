@@ -1,5 +1,5 @@
 const UserProfile = require('../models/user_model')
-
+const jwt = require('jsonwebtoken')
 // For an user to register
 const register = (req, res) => {
     UserProfile.findOne({email: req.body.email})
@@ -45,20 +45,20 @@ const register = (req, res) => {
 const login = (req, res, next) => {
     UserProfile.findOne({email: req.body.email, password: req.body.password})
     .then(validUser => {
-        if (validUser) {
-            res.json({
-                message: "Successfully logged in"
+        if (!validUser) {
+            return res.json({
+                message: 'Incorrect credentials. Try again.'
             })
         }
-        else {
-            res.json({
-                message: "Incorrect credentials. Try again."
-            })
-        }
+        const token = jwt.sign({ userId: validUser._id }, 'super-top-secret-key')
+        res.json({
+            message: "Successfully logged in", 
+            token: token
+        })
     })
     .catch(error => {
         res.json({
-            message: "An error occured"
+            message: "An error occured during login"
         })
     })
 }
