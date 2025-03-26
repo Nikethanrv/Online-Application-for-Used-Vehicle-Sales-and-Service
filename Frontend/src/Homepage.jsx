@@ -20,6 +20,7 @@ const Homepage = () => {
       setisLoggedIn(true)
     } else {
       setisLoggedIn(false)
+      navigate("/")
     }
 
     const fetchCarData = async () => {
@@ -74,18 +75,16 @@ const Homepage = () => {
     car.model.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  
+
   return (
     <div className="homepage">
       <header className="header">🚗 Used Cars Marketplace</header>
-      {!isLoggedIn && (
-        <div className="auth-buttons">
-          <Link to="/signup">
-            <button>Sign Up</button>
-          </Link>
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-        </div>
+      
+      {isLoggedIn && (
+        <Link to="/">
+          <button>Back to Dashboard</button>
+        </Link>
       )}
       <div className="search-bar">
         <input

@@ -50,7 +50,7 @@ const login = (req, res, next) => {
                 message: 'Incorrect credentials. Try again.'
             })
         }
-        const token = jwt.sign({ userId: validUser._id }, 'super-top-secret-key')
+        const token = jwt.sign({ userId: validUser._id, full_name: validUser.full_name }, 'super-top-secret-key')
         res.json({
             message: "Successfully logged in", 
             token: token
