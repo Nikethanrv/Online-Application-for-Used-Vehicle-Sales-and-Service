@@ -41,6 +41,69 @@ const register = (req, res) => {
     })
 }
 
+const getUserDetails = async (req, res) => {
+    const token = req.headers.authorization
+    const { userId } = req.params
+
+    if (!token) {
+        return res.status(401).json({
+            message: "Token not available"
+        })
+    }
+
+    try {
+        const decode = jwt.verify(token, "super-top-secret-key")
+
+        if (decode.userId !== userId) {
+            return res.status(403).json({
+                message: "Unauthorized"
+            })
+        }
+
+        const user = await UserProfile.findById(userId)
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            })
+        }
+        res.json({
+            full_name: user.full_name,
+            phone_number: user.phone_number,
+            email: user.email,
+            location: user.address.city
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: "Server error"
+        })
+    }
+}
+
+const userProfile = async (req, res) => {
+    const token = req.headers.authorization;
+    const { userId } = req.params;
+  
+    try {
+      const decode = jwt.verify(token, "super-top-secret-key");
+  
+      if (decode.userId !== userId) {
+        return res.status(403).json({ message: "Unauthorized" });
+      }
+  
+      const user = await UserProfile.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      res.json(user); 
+  
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      return res.status(500).json({ message: "Server error" });
+    }
+  };
+
 // for user to login
 const login = (req, res, next) => {
     UserProfile.findOne({email: req.body.email, password: req.body.password})
@@ -50,7 +113,7 @@ const login = (req, res, next) => {
                 message: 'Incorrect credentials. Try again.'
             })
         }
-        const token = jwt.sign({ userId: validUser._id, full_name: validUser.full_name }, 'super-top-secret-key')
+        const token = jwt.sign({ userId: validUser._id }, 'super-top-secret-key')
         res.json({
             message: "Successfully logged in", 
             token: token
@@ -127,6 +190,9 @@ const deleteAcc = (req, res, next) => {
     })
 }
 
+
+// for getting user details for filling car sales form
+
 module.exports = {
-    register, login, updateAcc, deleteAcc
+    register, login, updateAcc, deleteAcc, getUserDetails, userProfile
 }

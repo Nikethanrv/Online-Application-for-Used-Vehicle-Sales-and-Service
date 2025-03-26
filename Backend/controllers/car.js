@@ -15,14 +15,14 @@ const fetchCars = async (req, res, next) => {
 
 const registerCar = async (req, res, next) => {
     try {
-        const existingID = await Car.findOne({ id: req.body.id })
-        if (existingID) {
+        /*
+        const = await Car.findOne({ id: req.body.id })
+        if () {
             return res.status(400).json({
                 message: "Car is already registered"
             })
-        }
+        }*/
         const car = new Car({
-            id: req.body.id,
             make: req.body.make,
             model: req.body.model,
             year: req.body.year,
@@ -31,6 +31,10 @@ const registerCar = async (req, res, next) => {
             fuelType: req.body.fuelType,
             condition: req.body.condition,
             price: req.body.price,
+            image: req.body.image,
+            name: req.body.name,
+            phone: req.body.phone,
+            email: req.body.email,
             location: req.body.location
         });
 
@@ -39,9 +43,8 @@ const registerCar = async (req, res, next) => {
             message: "Car registered successfully for sale"
         })
     } catch (error) {
-        res.status(500).json({
-            message: "Internal server error: " + error
-        })
+        console.error("Error registering car:", error);
+        res.status(500).json({ message: "Internal server error: " + error.message });
     }
 };
 

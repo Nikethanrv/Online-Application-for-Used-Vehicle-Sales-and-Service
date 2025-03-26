@@ -5,7 +5,8 @@ import CarDetails from "./CarDetails"; // Import the details page
 import Signup from "./signUp";
 import Login from "./login";
 import Dashboard from "./DashBoard";
-// import SellPage from "./SellPage"; <Route path="/sell" element={<SellPage />} /> // Upcoming sell component
+import SellPage from "./SellPage"; // Upcoming sell component
+import Profile from "./profile";
 // import InputDisplay from "./Prac";
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
          <Route path="/signup" element={<Signup />}></Route>
          <Route path="/login" element={<Login />}></Route>
          <Route path="/car-details" element={<CarDetails />} />
-         
+         <Route path="/sell" element={<SellPage />} />
+         <Route path="/profile" element={<Profile />}></Route>
        </Routes>
      </Router>
   );

@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 // import { jwt_decode } from 'jwt-decode';
 
-// const UNSPLASH_ACCESS_KEY = "WDbM-V_NqCGYB37tQnD797i5bqcbKB4O_ZazTMfwyOs";
+const UNSPLASH_ACCESS_KEY = "WDbM-V_NqCGYB37tQnD797i5bqcbKB4O_ZazTMfwyOs";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -111,6 +111,11 @@ const Dashboard = () => {
           >
             Sell
           </button>
+          <div className="user-account"> 
+              <Link to="/profile">
+                <button>Your Profile</button>
+              </Link>
+          </div>
           <div className="logout-button">
             <button onClick={handleLogout}>Logout</button>
           </div>

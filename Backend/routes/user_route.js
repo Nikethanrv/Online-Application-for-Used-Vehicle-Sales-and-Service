@@ -1,11 +1,13 @@
 const express = require('express')
 const router = express.Router()
 
-const user_profile_register = require('../controllers/user')
+const user_profile = require('../controllers/user')
 
-router.post('/reg', user_profile_register.register)
-router.post('/login', user_profile_register.login)
-router.post('/update', user_profile_register.updateAcc)
-router.post('/delete', user_profile_register.deleteAcc)
+router.post('/reg', user_profile.register)
+router.post('/login', user_profile.login)
+router.post('/update', user_profile.updateAcc)
+router.post('/delete', user_profile.deleteAcc)
+router.get('/details/:userId', user_profile.getUserDetails)
+router.get('/profile/:userId', user_profile.userProfile)
 
 module.exports = router
