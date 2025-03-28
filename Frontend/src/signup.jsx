@@ -29,11 +29,11 @@ const Signup = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            full_name: formData.full_name,
-            email: formData.email,
-            password: formData.password,
-            phone_number: formData.phone_number,
-            address: {
+          full_name: formData.full_name,
+          email: formData.email,
+          password: formData.password,
+          phone_number: formData.phone_number,
+          address: {
             street: formData.street,
             city: formData.city,
             state: formData.state,
@@ -62,7 +62,12 @@ const Signup = () => {
         <form className="signup-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Full Name</label>
-            <input type="text" name="full_name" required onChange={handleChange} />
+            <input
+              type="text"
+              name="full_name"
+              required
+              onChange={handleChange}
+            />
           </div>
           <div className="form-group">
             <label>Email</label>
@@ -70,11 +75,21 @@ const Signup = () => {
           </div>
           <div className="form-group">
             <label>Password</label>
-            <input type="password" name="password" required onChange={handleChange} />
+            <input
+              type="password"
+              name="password"
+              required
+              onChange={handleChange}
+            />
           </div>
           <div className="form-group">
             <label>Phone Number</label>
-            <input type="tel" name="phone_number" required onChange={handleChange} />
+            <input
+              type="tel"
+              name="phone_number"
+              required
+              onChange={handleChange}
+            />
           </div>
           <div className="form-group">
             <label>Street</label>
@@ -89,10 +104,17 @@ const Signup = () => {
             <input type="text" name="state" required onChange={handleChange} />
           </div>
           <div className="form-group">
-            <label>Zip Code</label>
-            <input type="text" name="zip_code" required onChange={handleChange} />
+            <label>Pin Code</label>
+            <input
+              type="text"
+              name="zip_code"
+              required
+              onChange={handleChange}
+            />
           </div>
-          <button type="submit" className="signup-submit">Create Account</button>
+          <button type="submit" className="signup-submit">
+            Create Account
+          </button>
         </form>
         <p className="login-link">
           Already have an account? <Link to="/login">Sign in here</Link>

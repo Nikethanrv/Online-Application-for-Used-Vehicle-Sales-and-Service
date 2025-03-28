@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import "./Profile.css";
 
 const Profile = () => {
   const [userDetails, setUserDetails] = useState(null);
@@ -52,13 +53,13 @@ const Profile = () => {
   }
 
   return (
-    <div>
+    <div className="profile-container">
       <h2>Profile</h2>
       <p><strong>Full Name:</strong> {userDetails.full_name}</p>
       <p><strong>Email:</strong> {userDetails.email}</p>
       <p><strong>Phone Number:</strong> {userDetails.phone_number}</p>
       {userDetails.address && (
-        <div>
+        <div className="address-container">
           <h3>Address</h3>
           <p><strong>Street:</strong> {userDetails.address.street}</p>
           <p><strong>City:</strong> {userDetails.address.city}</p>
@@ -67,6 +68,7 @@ const Profile = () => {
       )}
     </div>
   );
+  
 };
 
 export default Profile;

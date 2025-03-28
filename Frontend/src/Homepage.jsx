@@ -21,8 +21,8 @@ const Homepage = () => {
 
     const fetchCarData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/car"); 
-        setCars(response.data); 
+        const response = await axios.get("http://localhost:3000/api/car");
+        setCars(response.data);
       } catch (error) {
         console.error("Error fetching car data:", error);
       }
@@ -35,9 +35,10 @@ const Homepage = () => {
   const closePopup = () => setSelectedCar(null);
   const goToDetails = (car) => navigate("/car-details", { state: { car } });
 
-  const filteredCars = cars.filter((car) =>
-    car.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    car.model.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredCars = cars.filter(
+    (car) =>
+      car.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      car.model.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -46,7 +47,25 @@ const Homepage = () => {
 
       {isLoggedIn && (
         <Link to="/">
-          <button>Back to Dashboard</button>
+          <button
+            style={{
+              padding: "10px",
+              marginLeft: "20px",
+              fontSize: "22px",
+              backgroundColor: "#1e3a8a",
+              color: "white",
+              fontWeight: "bold",
+              border: "none",
+              borderRadius: "12px",
+              cursor: "pointer",
+              boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.4)",
+              transition: "transform 0.2s ease-in-out, background-color 0.3s",
+            }}
+            onMouseOver={(e) => (e.target.style.transform = "scale(1.15)")}
+            onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+          >
+            Back to Dashboard
+          </button>
         </Link>
       )}
 
@@ -62,12 +81,21 @@ const Homepage = () => {
       <div className="car-list">
         {filteredCars.length > 0 ? (
           filteredCars.map((car) => (
-            <div key={car._id} className="car-card" onClick={() => handleClick(car)}>
-              <img src={car.image} alt={car.make} className="car-image" /> {/* Use Base64 image */}
+            <div
+              key={car._id}
+              className="car-card"
+              onClick={() => handleClick(car)}
+            >
+              <img src={car.image} alt={car.make} className="car-image" />{" "}
+              {/* Use Base64 image */}
               <div className="car-details">
-                <h2>{car.make} {car.model}</h2>
-                <p>{car.year} • {car.mileage} • {car.transmission}</p>
-                <h3>${car.price}</h3>
+                <h2>
+                  {car.make} {car.model}
+                </h2>
+                <p>
+                  {car.year} • {car.mileage} kms • {car.transmission}
+                </p>
+                <h3>₹{car.price}</h3>
               </div>
             </div>
           ))
@@ -79,12 +107,24 @@ const Homepage = () => {
       {selectedCar && (
         <div className="popup-overlay">
           <div className="popup">
-            <h2>{selectedCar.make} {selectedCar.model}</h2>
-            <img src={selectedCar.image} alt={selectedCar.make} className="popup-image" /> {/* Use Base64 image */}
-            <p>{selectedCar.year} • {selectedCar.mileage} • {selectedCar.transmission}</p>
-            <h3>${selectedCar.price}</h3>
+            <h2>
+              {selectedCar.make} {selectedCar.model}
+            </h2>
+            <img
+              src={selectedCar.image}
+              alt={selectedCar.make}
+              className="popup-image"
+            />{" "}
+            {/* Use Base64 image */}
+            <p>
+              {selectedCar.year} • {selectedCar.mileage} kms •{" "}
+              {selectedCar.transmission}
+            </p>
+            <h3>₹{selectedCar.price}</h3>
             <div className="popup-buttons">
-              <button onClick={() => goToDetails(selectedCar)}>Show All Details</button>
+              <button onClick={() => goToDetails(selectedCar)}>
+                Show All Details
+              </button>
               <button onClick={closePopup}>Close</button>
             </div>
           </div>
