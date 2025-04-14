@@ -128,22 +128,24 @@ const login = (req, res, next) => {
 
 // for an user to update his/her account details
 const updateAcc = (req, res, next) => {
-    let email = req.body.email
+    const userId = req.query.userId
+    
     let password = req.body.password
     let updatedData = {
         full_name: req.body.full_name,
+        email: req.body.email,
+        password: req.body.password,
         phone_number: req.body.phone_number,
         address: {
             street: req.body.address.street,
             city: req.body.address.city,
-            state: req.body.address.state,
-            zip_code: req.body.zip_code
+            state: req.body.address.state
         }
     }
-    UserProfile.findOne({email:email, password: password})
-    .then(emailExists => {
-        if (emailExists) {
-            UserProfile.findOneAndUpdate({email: email}, {$set: updatedData})
+    UserProfile.findOne({_id: userId})
+    .then(userExists => {
+        if (userExists) {
+            UserProfile.findOneAndUpdate({_id: userId}, {$set: updatedData})
             .then(() => {
                 res.json({
                     message: "Account updated successfully"
