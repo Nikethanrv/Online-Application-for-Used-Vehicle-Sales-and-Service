@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./Homepage";
-import CarDetails from "./CarDetails"; // Import the details page
+import CarDetails from "./CarDetails";
 import Signup from "./signUp";
 import Login from "./login";
 import Dashboard from "./DashBoard";
-import SellPage from "./SellPage"; // Upcoming sell component
-import Profile from "./profile";
-// import InputDisplay from "./Prac";
+import SellPage from "./SellPage"; 
+import Profile from "./profile"
+import SellerListings from './SellerListings'
 function App() {
   return (
     <Router>
@@ -19,6 +19,7 @@ function App() {
          <Route path="/car-details" element={<CarDetails />} />
          <Route path="/sell" element={<SellPage />} />
          <Route path="/profile" element={<Profile />}></Route>
+         <Route path="/listings" element={<SellerListings />}></Route>
        </Routes>
      </Router>
   );

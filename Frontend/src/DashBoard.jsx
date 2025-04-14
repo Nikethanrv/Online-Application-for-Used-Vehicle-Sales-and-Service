@@ -126,6 +126,26 @@ const Dashboard = () => {
             >
               Sell
             </button>
+
+            <button
+              style={{
+                padding: "20px 40px",
+                fontSize: "22px",
+                backgroundColor: "#28a745",
+                color: "white",
+                fontWeight: "bold",
+                border: "none",
+                borderRadius: "12px",
+                cursor: "pointer",
+                boxShadow: "5px 5px 15px rgba(0, 0, 0, 0.4)",
+                transition: "transform 0.2s ease-in-out, background-color 0.3s",
+              }}
+              onClick={() => navigate("/listings")}
+              onMouseOver={(e) => (e.target.style.transform = "scale(1.15)")}
+              onMouseOut={(e) => (e.target.style.transform = "scale(1)")}
+            >
+            Manage Listings
+            </button>
             <div className="user-account">
               <Link to="/profile">
                 <button

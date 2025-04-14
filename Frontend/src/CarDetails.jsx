@@ -73,8 +73,7 @@ const CarDetails = () => {
             )}
           </tbody>
         </table>
-      </div>
-
+      </div> 
       <button onClick={() => navigate(-1)} style={buttonStyle("#dc2626")}>
         Go Back
       </button>

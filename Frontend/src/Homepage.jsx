@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "./Homepage.css";
+import { jwtDecode } from "jwt-decode";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -14,21 +15,24 @@ const Homepage = () => {
     const token = localStorage.getItem("token");
     if (token) {
       setisLoggedIn(true);
+      const tokenUserId = jwtDecode(token)
+      const userId = tokenUserId.userId
+      console.log(userId)
+      const fetchCarData = async () => {
+        try {
+          const response = await axios.get(`http://localhost:3000/api/car?userId=${userId}`);
+          console.log("Success")
+          setCars(response.data);
+        } catch (error) {
+          console.error("Error fetching car data:", error);
+        }
+      };
+  
+      fetchCarData();
     } else {
       setisLoggedIn(false);
       navigate("/");
     }
-
-    const fetchCarData = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/api/car");
-        setCars(response.data);
-      } catch (error) {
-        console.error("Error fetching car data:", error);
-      }
-    };
-
-    fetchCarData();
   }, [navigate]);
 
   const handleClick = (car) => setSelectedCar(car);

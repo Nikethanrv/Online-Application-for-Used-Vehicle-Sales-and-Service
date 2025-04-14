@@ -14,7 +14,8 @@ const carSchema = new Schema({
     name: { type: String },
     phone: { type: String },
     email: { type: String },
-    location: { type: String }
+    location: { type: String },
+    seller_id: { type: String }
 }, {timestamps: true})
 
 const Car = mongoose.model('Car', carSchema)

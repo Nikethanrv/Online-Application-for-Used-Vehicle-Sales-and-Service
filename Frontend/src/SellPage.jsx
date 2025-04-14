@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, data } from "react-router-dom";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
@@ -21,6 +21,7 @@ const SellPage = () => {
     phone: "",
     email: "",
     location: "",
+    seller_id: ""
   });
   const [imagePreview, setImagePreview] = useState(null);
   const [errors, setErrors] = useState({});
@@ -34,7 +35,7 @@ const SellPage = () => {
       try {
         const tokenUserId = jwtDecode(token);
         const userId = tokenUserId.userId;
-
+        // console.log(userId)
         const fetchUserDetails = async () => {
           try {
             const response = await axios.get(
@@ -45,12 +46,14 @@ const SellPage = () => {
                 },
               }
             );
+            // Using "_id" for filtering cars for the Seller Listings
             setCarDetails((prevDetails) => ({
               ...prevDetails,
               name: response.data.full_name,
               phone: response.data.phone_number,
               email: response.data.email,
               location: response.location,
+              seller_id: userId
             }));
           } catch (error) {
             console.error("Error fetching user details", error);
@@ -126,8 +129,9 @@ const SellPage = () => {
         },
         body: JSON.stringify(carDetails),
       });
+      const data = await response.json()
       if (response.ok) {
-        console.log("Car successfully registered for sale");
+        console.log(data.message);
         setCarDetails({
           make: "",
           model: "",
@@ -143,17 +147,17 @@ const SellPage = () => {
           email: "",
           location: "",
         });
+        setShowPopup(true);
       } else {
-        console.log("Error in registering");
+        alert(data.message)
       }
     } catch (error) {
-      console.log(error);
+      alert(error)
     }
-
-    setShowPopup(true);
-    setTimeout(() => {
-      navigate("/home");
-    }, 2000);
+    {setTimeout(() => {
+      setShowPopup(false)
+      window.location.reload(false)
+    }, 1000);}
   };
 
   return (
@@ -304,9 +308,6 @@ const SellPage = () => {
           />
           {errors.mileage && <p style={{ color: "red" }}>{errors.mileage}</p>}
 
-          {/* <input type="text" name="transmission" placeholder="Transmission" onChange={handleChange} style={{ width: "100%", padding: "10px", marginBottom: "10px" }} />
-          {errors.transmission && <p style={{ color: "red" }}>{errors.transmission}</p>} */}
-
           <select
             name="transmission"
             onChange={handleChange}
@@ -398,9 +399,14 @@ const SellPage = () => {
             boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
           }}
         >
-          <h3>Car posted for sale!</h3>
+          <h3>
+            Car posted for sale!
+          </h3>
         </div>
       )}
+      <Link to="/listings">
+            <button>View/Manage Listings</button>
+      </Link>
     </div>
   );
 };
