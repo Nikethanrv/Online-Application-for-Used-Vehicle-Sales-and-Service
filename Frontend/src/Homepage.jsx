@@ -37,8 +37,9 @@ const Homepage = () => {
 
   const handleClick = (car) => setSelectedCar(car);
   const closePopup = () => setSelectedCar(null);
-  const goToDetails = (car) => navigate("/car-details", { state: { car } });
-
+  const goToDetails = (car) => {
+    navigate("/car-details", { state: { car } });
+  }
   const filteredCars = cars.filter(
     (car) =>
       car.make.toLowerCase().includes(searchQuery.toLowerCase()) ||

@@ -5,7 +5,7 @@ const fetchCars = async (req, res, next) => {
     const seller_id = req.query.userId
     try {
         if (seller_id) {
-            const docs = await Car.find({seller_id: {$ne : seller_id}}, {_id:0, __v: 0, createdAt: 0, updatedAt: 0})
+            const docs = await Car.find({seller_id: {$ne : seller_id}}, { __v: 0, createdAt: 0, updatedAt: 0})
             res.json(docs)
         }
     } catch (error) {
@@ -31,8 +31,22 @@ const fetchListings = async (req, res, next) => {
     }
 }
 
+// To get Car details by ID
+const fetchCarDetails = async (req, res, next) => {
+    const car_id = req.query.car_id
+    try {
+        if (car_id) {
+            const listings = await Car.findById({ _id: car_id })
+            res.status(200).json(listings)
+        }
+    } catch (error) {
+        console.error("Error fetching listings:", error)
+        res.status(500).json({
+            message: "Failed to fetch listings"
+        })
+    }
+}
 //
-
 const registerCar = (req, res, next) => {
         Car.findOne({ make: req.body.make, model: req.body.model, year: req.body.year })
         .then(ExistingCar => {
@@ -157,5 +171,6 @@ module.exports = {
     registerCar,
     updateCar,
     deleteCar,
-    fetchListings
+    fetchListings,
+    fetchCarDetails
 };

@@ -1,6 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { jwtDecode } from "jwt-decode";
+import axios from 'axios'
 
 const ChatPage = () => {
+  const [isLoggedIn, setisLoggedIn] = useState(true)
+
+  let seller_id = ''
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token) 
+        seller_id = decodedToken.userId
+      } catch (error) {
+        console.log(error)
+      }
+      setisLoggedIn(true);
+      console.log(seller_id)
+      const carDetails = localStorage.getItem('carDetails')
+      if (carDetails) console.log(JSON.parse(carDetails))
+
+      // to do: fetch Car ID
+    } else {
+      setisLoggedIn(false);
+    }
+
+  }, []);
+
   const [message, setMessage] = useState("");
   const [file, setFile] = useState(null);
   const [messages, setMessages] = useState([
