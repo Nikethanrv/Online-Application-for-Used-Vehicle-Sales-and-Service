@@ -8,7 +8,7 @@ import Dashboard from "./DashBoard";
 import SellPage from "./SellPage"; 
 import Profile from "./profile"
 import SellerListings from './SellerListings'
-import ChatPage from "./ChatPage";
+import Contact from "./contact";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
          <Route path="/sell" element={<SellPage />} />
          <Route path="/profile" element={<Profile />}></Route>
          <Route path="/listings" element={<SellerListings />}></Route>
-         <Route path="/chat" element={<ChatPage />} /> 
+         <Route path="/contact" element={<Contact />}></Route>
        </Routes>
      </Router>
   );

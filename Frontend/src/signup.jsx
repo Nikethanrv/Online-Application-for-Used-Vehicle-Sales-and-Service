@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import "./styles/signup.css";
 
 const Signup = () => {
@@ -45,20 +47,32 @@ const Signup = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Account created successfully");
-        navigate("/login");
+        toast.success("Account created successfully", {
+          position: "top-right",
+          autoClose: 3000
+        });
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
       } else {
-        alert(data.message || "Signup failed");
+        toast.error(data.message || "Signup failed", {
+          position: "top-right",
+          autoClose: 3000
+        });
       }
     } catch (error) {
-      alert("An error occurred while signing up");
+      toast.error("An error occurred while signing up", {
+        position: "top-right",
+        autoClose: 3000
+      });
     }
   };
 
   return (
     <div className="signup-page">
+      <ToastContainer />
       <div className="signup-container">
-        <h2>Create LUCI CARS Account</h2>
+        <h2>Create S3H CARS Account</h2>
         <form className="signup-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Full Name</label>

@@ -2,19 +2,22 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import "./Homepage.css";
+import { FaCar, FaTachometerAlt, FaGasPump, FaCalendarAlt, FaExchangeAlt, FaArrowLeft } from "react-icons/fa";
+import "./styles/SellerListings.css";
 
 const SellerListings = () => {
   const navigate = useNavigate();
-  const [isLoggedIn, setisLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [listings, setListings] = useState([]);
   const [interestedBuyers, setInterestedBuyers] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [toast, setToast] = useState({ message: "", type: "" });
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      setisLoggedIn(true);
+      setIsLoggedIn(true);
       const tokenUserId = jwtDecode(token);
       const userId = tokenUserId.userId;
       const fetchSellerListings = async () => {
@@ -30,7 +33,7 @@ const SellerListings = () => {
 
       fetchSellerListings();
     } else {
-      setisLoggedIn(false);
+      setIsLoggedIn(false);
       navigate("/");
     }
   }, [navigate]);
@@ -45,116 +48,144 @@ const SellerListings = () => {
     }
 
     try {
-      
       const tokenUserId = jwtDecode(token);
       const userId = tokenUserId.userId;
-      console.log(carId, userId)
       const response = await axios.get(
         `http://localhost:3000/api/messages/getMessages?car_id=${carId}&seller_id=${userId}`
       );
-      console.log(response.data)
-      setInterestedBuyers(response.data)
+      setInterestedBuyers(response.data);
     } catch (error) {
       console.error("Error fetching interested buyers:", error);
     }
   };
 
   const handleAccept = async (docId, carId) => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/api/messages/acceptBuyer?doc_id=${docId}&car_id=${carId}`
-        )
-        console.log(response.data)
-        alert("Buyer Accepted Successfully")
-      } catch (error) {
-        console.error("Error accepting buyer:", error);
-      } 
-  }
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/messages/acceptBuyer?doc_id=${docId}&car_id=${carId}`
+      );
+      setToast({ message: "Buyer Accepted Successfully", type: "success" });
+      setTimeout(() => setToast({ message: "", type: "" }), 3000);
+      handleInterestedBuyers(carId);
+      
+    } catch (error) {
+      console.error("Error accepting buyer:", error);
+      setToast({ message: "Error accepting buyer", type: "error" });
+      setTimeout(() => setToast({ message: "", type: "" }), 3000);
+    }
+  };
 
   const handleReject = async (docId, carId) => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/api/messages/rejectBuyer?doc_id=${docId}&car_id=${carId}`
-        )
-        console.log(response.data)
-        alert("Buyer rejected Successfully")
-      } catch (error) {
-        console.error("Error rejecting buyer:", error);
-      } 
-  }
-
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/messages/rejectBuyer?doc_id=${docId}&car_id=${carId}`
+      );
+      setToast({ message: "Buyer Rejected Successfully", type: "error" });
+      setTimeout(() => setToast({ message: "", type: "" }), 3000);
+      handleInterestedBuyers(carId);
+    } catch (error) {
+      console.error("Error rejecting buyer:", error);
+      setToast({ message: "Error rejecting buyer", type: "error" });
+      setTimeout(() => setToast({ message: "", type: "" }), 3000);
+    }
+  };
   return (
-    <div>
-      <h1>YOUR LISTINGS</h1>
-      <div className="listings">
+    <div className="seller-listings-container">
+      <h1 className="listings-header">YOUR LISTINGS</h1>
+
+      <div className="listings-grid">
         {listings.length > 0 ? (
           listings.map((car) => (
-            <div key={car._id}>
-              <img src={car.image} alt={car.make} />
-              <div>
-                <h2>
-                  {car.make} {car.model}
-                </h2>
-                <p>
-                  {car.year} • {car.mileage} kms • {car.transmission}
-                </p>
-                <h3>₹{car.price}</h3>
+            <div className="listing-card" key={car._id}>
+              <img
+                src={car.image}
+                alt={`${car.make} ${car.model}`}
+                className="listing-image"
+              />
+              <div className="listing-details">
+                <h2>{car.make} {car.model}</h2>
+                <p><FaCalendarAlt /> {car.year}</p>
+                <p><FaTachometerAlt /> {car.mileage} kms</p>
+                <p><FaExchangeAlt /> {car.transmission}</p>
+                <p><FaGasPump /> {car.fuelType}</p>
+                <h3>₹{car.price.toLocaleString()}</h3>
               </div>
-              <button onClick={() => handleInterestedBuyers(car._id)}>
-                INTERESTED BUYERS
-              </button>
+              <div className="listing-actions">
+                <button
+                  className="listing-button"
+                  onClick={() => handleInterestedBuyers(car._id)}
+                >
+                  Interested Buyers
+                </button>
+              </div>
             </div>
           ))
         ) : (
-          <p>No cars listed for sale</p>
+          <div className="no-listings">
+            <p>No cars listed for sale</p>
+            <Link to="/sell" className="sell-button" style={{ display: 'inline-block', marginTop: '20px' }}>
+              List Your First Car
+            </Link>
+          </div>
         )}
       </div>
 
-      {showPopup && (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            background: "white",
-            padding: "20px",
-            borderRadius: "10px",
-            boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-          }}
-        >
-          <h2>Interested Buyers</h2>
-          <div className="buyers">
-            {interestedBuyers.length > 0 ? (
-              interestedBuyers.map((buyer) => (
-                <div key={buyer._id}>
-                  Buyer Name: {buyer.buyer_name} <br />
-                  Buyer Email: {buyer.buyer_email} <br />
-                  Buyer Phone: {buyer.buyer_phone} <br />
-                  Buyer Location: {buyer.buyer_location} <br />
-                  Bargain Price: {buyer.price_bargain_range} <br />
-                  Query: {buyer.query} <br />
-
-                  <button onClick={() => handleAccept(buyer._id, buyer.car_id)}>ACCEPT</button>
-                  <button onClick={() => handleReject(buyer._id, buyer.car_id)}>REJECT</button>
-                </div>
-              ))
-            ) : (
-              <p>No interested buyers</p>
-            )}
-          </div>
-          <button type="button" onClick={() => setShowPopup(false)}>
-            Close
-          </button>
+      {toast.message && (
+        <div className={`custom-toast ${toast.type}`}>
+          {toast.message}
         </div>
       )}
 
-      <Link to="/">
-        <button>Back to DashBoard</button>
-      </Link>
-      <Link to="/sell">
-        <button>List car for sale</button>
-      </Link>
+
+      {showPopup && (
+        <>
+          <div className="popup-overlay" onClick={() => setShowPopup(false)}></div>
+          <div className="buyer-popup">
+            <h2>Interested Buyers</h2>
+            <div className="buyers">
+              {interestedBuyers.length > 0 ? (
+                interestedBuyers.map((buyer) => (
+                  <div className="buyer-item" key={buyer._id}>
+                    <p><strong>Buyer Name:</strong> {buyer.buyer_name}</p>
+                    <p><strong>Email:</strong> {buyer.buyer_email}</p>
+                    <p><strong>Phone:</strong> {buyer.buyer_phone}</p>
+                    <p><strong>Location:</strong> {buyer.buyer_location}</p>
+                    <p><strong>Bargain Price:</strong> ₹{buyer.price_bargain_range}</p>
+                    <p><strong>Query:</strong> {buyer.query}</p>
+                    <div className="buyer-actions">
+                      <button onClick={() => handleAccept(buyer._id, buyer.car_id)}>
+                        ACCEPT
+                      </button>
+                      <button onClick={() => handleReject(buyer._id, buyer.car_id)}>
+                        REJECT
+                      </button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>No interested buyers</p>
+              )}
+            </div>
+            <button
+              className="popup-close"
+              onClick={() => setShowPopup(false)}
+            >
+              Close
+            </button>
+          </div>
+        </>
+      )}
+
+      {listings.length > 0 && (
+        <div className="page-actions">
+          <Link to="/">
+            <button className="dashboard-button"><FaArrowLeft/>&nbsp;&nbsp;Back to Dashboard</button>
+          </Link>
+          <Link to="/sell">
+            <button className="sell-button">Sell Another Car</button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

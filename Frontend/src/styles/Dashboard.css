@@ -1,0 +1,224 @@
+*{
+  font-family: 'Poppins';
+}
+.dealer-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.dealer-nav {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+}
+
+.logo {
+  font-size: 34px;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 3px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 80px);
+  text-align: center;
+  color: white;
+  padding: 0 20px;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.tagline {
+  font-size: 22px;
+  letter-spacing: 5px;
+  font-weight: 400;
+}
+
+.main-heading {
+  font-size: 4rem;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 900;
+}
+
+.cta-button {
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background: white;
+  color: black;
+}
+
+em {
+  font-style: normal;
+  color: #ed563b;
+  font-weight: 900;
+}
+.welcome-message{
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+/* Loading States */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 1rem;
+}
+
+.spinner {
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 5px solid #3498db;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+.retry-message {
+  color: #666;
+  font-style: italic;
+}
+
+/* Error States */
+.error-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.error-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.error-card h3 {
+  color: #d32f2f;
+  margin-top: 0;
+}
+
+.troubleshooting {
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.troubleshooting ol {
+  padding-left: 1.5rem;
+}
+
+.troubleshooting li {
+  margin-bottom: 0.5rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.retry-button {
+  background: #2196f3;
+  color: black;
+}
+
+.logout-button {
+  background: #f44336;
+  color: white;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Welcome message styles */
+.welcome-message {
+  color: white;
+  font-weight: bold;
+  margin-right: 20px;
+  font-size: 24px;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+}
+
+/* Adjust nav-links to handle welcome message */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}

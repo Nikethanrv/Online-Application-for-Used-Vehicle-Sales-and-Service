@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+import "./styles/CarDetails.css";
 
 const CarDetails = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const car = location.state?.car;
-  // console.log(car);
+
   const [interestedDetails, setInterestedDetails] = useState({
     seller_id: car?.seller_id || "",
     car_id: car?._id || "",
@@ -18,54 +19,35 @@ const CarDetails = () => {
     buyer_location: "",
     price_bargain_range: 0,
     query: "",
-    status: "pending"
+    status: "pending",
   });
+
   const [isLoggedIn, setisLoggedIn] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const data = {
-    model: car.model,
-    make: car.make,
-    year: car.year,
-  };
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("");
 
-  if (!car) {
-    return (
-      <p style={{ textAlign: "center", fontSize: "20px", marginTop: "50px" }}>
-        No car details available.
-      </p>
-    );
-  }
-
-  const handleChatClick = () => {
-    //localStorage.setItem('carDetails', JSON.stringify(data))
-    //navigate('/chat')
-    setShowPopup(true);
+  useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       setisLoggedIn(true);
-
       try {
         const tokenUserId = jwtDecode(token);
         const userId = tokenUserId.userId;
-        // console.log(userId)
+
         const fetchUserDetails = async () => {
           try {
             const response = await axios.get(
               `http://localhost:3000/api/user/details/${userId}`,
-              {
-                headers: {
-                  Authorization: token,
-                },
-              }
+              { headers: { Authorization: token } }
             );
-            // Using "_id" for filtering cars for the Seller Listings
-            setInterestedDetails((prevDetails) => ({
-              ...prevDetails,
+            setInterestedDetails((prev) => ({
+              ...prev,
               buyer_name: response.data.full_name,
               buyer_phone: response.data.phone_number,
               buyer_email: response.data.email,
               buyer_location: response.data.location,
-              buyer_id: userId
+              buyer_id: userId,
             }));
           } catch (error) {
             console.error("Error fetching user details", error);
@@ -77,7 +59,20 @@ const CarDetails = () => {
       }
     } else {
       setisLoggedIn(false);
+    }
+  }, []);
+
+  if (!car) {
+    return <p className="no-car-message">No car details available.</p>;
+  }
+
+  const handleChatClick = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setisLoggedIn(false);
       navigate("/dashboard");
+    } else {
+      setShowPopup(true);
     }
   };
 
@@ -88,118 +83,94 @@ const CarDetails = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(interestedDetails);
     try {
       const response = await axios.post(
         "http://localhost:3000/api/messages/send",
         interestedDetails
       );
-      console.log("Interest submitted successfully:", response.data);
-      alert("Interest submitted successfully");
+      setToastMessage("Interest submitted successfully");
+      setToastType("success");
+      setTimeout(() => {
+        setToastMessage("");
+        setToastType("");
+      }, 3000); 
     } catch (error) {
       console.error("Error submitting interest:", error);
-      alert("Error submitting interest. Please try again.");
+      setToastMessage("Error submitting interest. Please try again.");
+      setToastType("error");
+      setTimeout(() => {
+        setToastMessage("");
+        setToastType("");
+      }, 3000);
     }
     setShowPopup(false);
-  }
+  };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#eef2f3",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        padding: "20px",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <h1 style={{ fontSize: "28px", color: "#1e3a8a", marginBottom: "20px" }}>
-        {car.make} {car.model}
-      </h1>
+    <div className="car-details-container">
+      {/* Toast Message */}
+      {toastMessage && (
+        <div className={`toast-message ${toastType}`}>
+          {toastMessage}
+        </div>
+      )}
 
-      <img
-        src={car.image}
-        alt={car.make}
-        style={{
-          width: "80%",
-          maxWidth: "600px",
-          borderRadius: "10px",
-          marginBottom: "20px",
-        }}
-      />
+      <div className="car-content">
+        <div className="car-img-container">
+          <img src={car.image} alt={car.make} className="car-img" />
+        </div>
 
-      <div
-        style={{
-          background: "white",
-          padding: "20px",
-          borderRadius: "10px",
-          width: "90%",
-          maxWidth: "700px",
-          boxShadow: "0px 4px 8px rgba(0,0,0,0.2)",
-        }}
-      >
-        <h2 style={{ color: "#1e3a8a", textAlign: "center" }}>
-          Car Specifications
-        </h2>
-        <table
-          style={{
-            width: "100%",
-            borderCollapse: "collapse",
-            marginTop: "10px",
-          }}
-        >
-          <tbody>
-            {Object.entries(car).map(
-              ([key, value]) =>
-                key !== "image" && (
-                  <tr key={key}>
-                    <td style={tdStyle}>{key.replace(/([A-Z])/g, " $1")}</td>
-                    <td style={tdStyle}>{value}</td>
-                  </tr>
-                )
-            )}
-          </tbody>
-        </table>
-      </div>
+        <div className="car-specs-container">
+          <h1 className="car-title">
+            {car.make} <span className="car-model">{car.model}</span>
+          </h1>
 
-      <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
-        <button onClick={() => navigate(-1)} style={buttonStyle("#dc2626")}>
-          Go Back
-        </button>
-        <button onClick={handleChatClick} style={buttonStyle("#2563eb")}>
-          I'm Interested
-        </button>
+          <div className="specs-card">
+            <h2 className="specs-title">Car Specifications</h2>
+            <div className="specs-grid">
+              {Object.entries(car).map(
+                ([key, value]) =>
+                  key !== "image" && (
+                    <React.Fragment key={key}>
+                      <div className="spec-label">
+                        {key.replace(/([A-Z])/g, " $1")}
+                      </div>
+                      <div className="spec-value">{value}</div>
+                    </React.Fragment>
+                  )
+              )}
+            </div>
+          </div>
+
+          <div className="button-group">
+            <button className="bck-button" onClick={() => navigate(-1)}>
+              Go Back
+            </button>
+            <button className="interested-button" onClick={handleChatClick}>
+              I'm Interested
+            </button>
+          </div>
+        </div>
       </div>
 
       {showPopup && (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            background: "white",
-            padding: "20px",
-            borderRadius: "10px",
-            boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-          }}
-        >
-          <h2>Sale</h2>
+        <div className="specs-card" style={{ position: "fixed", top: "10%", left: "50%", transform: "translateX(-50%)", zIndex: 1000 }}>
+          <h2 className="specs-title">Sale</h2>
           <form onSubmit={handleSubmit}>
-            Price Bargain Range:
+            <label htmlFor="range">Price Bargain Range</label>
             <input
               type="range"
               name="price_bargain_range"
-              min={(car.price)/2}
-              max={(car.price)}
+              min={car.price / 2}
+              max={car.price}
+              step={1000}
               value={interestedDetails.price_bargain_range}
               onChange={handleChange}
-              style={{ width: "100%", margin: "10px 0" }}
+              style={{ width: "100%", marginBottom: "10px" }}
             />
-            <p>Selected Price: ₹{interestedDetails.price_bargain_range}</p><br />
-            <label htmlFor="query">Query:</label><br />
+            <p>Selected Price: ₹{interestedDetails.price_bargain_range}</p>
+
+            <label htmlFor="query">Query:</label>
             <textarea
               name="query"
               value={interestedDetails.query}
@@ -207,38 +178,31 @@ const CarDetails = () => {
               rows="4"
               cols="50"
               placeholder="Enter your query here..."
-              style={{ width: "100%", padding: "10px", borderRadius: "5px" }}
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "5px",
+                marginBottom: "10px",
+              }}
             />
-            <button type="submit" style={buttonStyle("#4ade80")}>
-              Submit
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowPopup(false)}
-              style={buttonStyle("#dc2626")}
-            >
-              Close
-            </button>
+
+            <div className="button-group">
+              <button type="submit" className="interested-button">
+                Submit
+              </button>
+              <button
+                type="button"
+                className="bck-button"
+                onClick={() => setShowPopup(false)}
+              >
+                Close
+              </button>
+            </div>
           </form>
         </div>
       )}
     </div>
   );
 };
-
-const tdStyle = {
-  padding: "10px",
-  borderBottom: "1px solid #ddd",
-  fontSize: "18px",
-  color: "#555",
-};
-const buttonStyle = (bgColor) => ({
-  padding: "12px 18px",
-  borderRadius: "8px",
-  backgroundColor: bgColor,
-  color: "white",
-  border: "none",
-  cursor: "pointer",
-});
 
 export default CarDetails;

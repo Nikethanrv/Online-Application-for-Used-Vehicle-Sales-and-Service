@@ -1,0 +1,340 @@
+/* SellPage.css */
+.sell-page-container {
+  padding: 30px;
+  text-align: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Dashboard Button */
+.dashboard-button {
+  padding: 12px 25px;
+  background-color: #ed563b;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dashboard-button:hover {
+  background-color: #ff6b4a;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Terms Overlay */
+.terms-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.terms-container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.terms-container h2 {
+  color: #333;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.terms-container p {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.agree-button {
+  padding: 12px 30px;
+  background-color: #ed563b;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.agree-button:hover {
+  background-color: #ff6b4a;
+  transform: translateY(-3px);
+}
+
+/* Sell Form */
+.sell-form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.sell-form-container h2 {
+  color: #333;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.8rem;
+}
+
+/* Form Sections Navigation */
+.form-sections {
+  display: flex;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eee;
+}
+
+.section-tab {
+  flex: 1;
+  padding: 12px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.section-tab.active {
+  color: #ed563b;
+  border-bottom-color: #ed563b;
+}
+
+.section-tab:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Form Section */
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 5px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: #ed563b;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(237, 86, 59, 0.2);
+}
+
+select.form-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 1em;
+}
+
+.error-message {
+  color: #d32f2f;
+  margin: 0 0 10px 0;
+  font-size: 0.85rem;
+}
+
+/* File Input */
+.file-input-label {
+  display: block;
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #f8f9fa;
+  border: 2px dashed #ddd;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.file-input-label:hover {
+  border-color: #ed563b;
+  background-color: #fff;
+}
+
+.file-input {
+  display: none;
+}
+
+/* Image Preview */
+.image-preview {
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+  object-fit: contain;
+  border-radius: 5px;
+  margin: 10px 0;
+  border: 2px solid #ed563b;
+}
+
+/* Buttons */
+.next-button,
+.submit-button,
+.back-button {
+  padding: 15px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.next-button,
+.submit-button {
+  background-color: #ed563b;
+}
+
+.next-button:hover,
+.submit-button:hover {
+  background-color: #ff6b4a;
+  transform: translateY(-3px);
+}
+
+.back-button {
+  background-color: #333;
+  margin-right: 10px;
+}
+
+.back-button:hover {
+  background-color: #555;
+  transform: translateY(-3px);
+}
+
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  flex: 1;
+}
+
+/* Success Popup */
+.success-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  text-align: center;
+}
+
+.success-popup h3 {
+  color: #28a745;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Listings Button */
+.listings-button {
+  padding: 12px 25px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  margin-top: 20px;
+  font-size: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.listings-button:hover {
+  background-color: #555;
+  transform: translateY(-3px);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .sell-form-container {
+    padding: 20px;
+  }
+  
+  .form-sections {
+    flex-direction: column;
+  }
+  
+  .section-tab {
+    padding: 10px;
+    border-bottom: none;
+    border-left: 3px solid transparent;
+  }
+  
+  .section-tab.active {
+    border-bottom: none;
+    border-left-color: #ed563b;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .back-button {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
