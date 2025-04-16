@@ -1,45 +1,51 @@
-📌 **S3H Car Dealer – MERN Stack Used Car Marketplace**
-Overview
-S3H Car Dealer is a full-featured used car marketplace web application built using the MERN stack (MongoDB, Express.js, React, Node.js). The platform connects car buyers and sellers, enabling smooth browsing, listing, and transaction workflows.
+### 📌 **S3H Car Dealer – MERN Stack Used Car Marketplace**
 
-🚀 **Key Features**
-🔐 User Authentication
-      Secure signup and login
-      JWT-based authentication
-      Session management using jwtDecode
+#### 🧾 Overview  
+**S3H Car Dealer** is a feature-rich used car marketplace web application built with the **MERN stack** (MongoDB, Express.js, React.js, Node.js). It bridges the gap between car buyers and sellers, offering a seamless platform for browsing, listing, and managing vehicle transactions.
 
-👤 Buyer Features
-      Browse used car listings with detailed specs and images
-      Express interest and submit bargain price offers
-      Contact sellers directly
-      Track offer/request statuses (pending/accepted/rejected)
+---
 
-🧑‍💼 Seller Features
-      Create and manage car listings
-      Upload images and detailed specifications
-      View and respond to buyer inquiries and offers
-      Manage bargain price negotiations
+### 🚀 **Key Features**
 
-📄 Profile & Dashboard
-      Personal profile and address management
-      Track request statuses
-      View transaction history
+#### 🔐 **User Authentication**
+- Secure signup and login  
+- JWT-based authentication  
+- Session handling using `jwtDecode`
 
-🛠️ **Tech Stack**
-Frontend: React.js
-Backend: Node.js + Express.js
-Database: MongoDB
-Authentication: JWT with jwtDecode
+---
+
+#### 👤 **Buyer Features**
+- 🔍 Browse available used car listings with detailed specifications and images  
+- 💬 Express interest and submit bargain offers  
+- 📊 View and track offer/request statuses (`pending`, `accepted`, `rejected`)
+- 📧 Send service appointment requests to S3H dealer via email
+
+---
+
+#### 🧑‍💼 **Seller Features**
+- 📝 Create, update, and manage car listings  
+- 📸 Upload car images and detailed specifications  
+- 💬 View and respond to buyer inquiries and offers  
+- 💵 Manage bargain price negotiations with buyers
+
+---
+
+#### 📄 **Profile & Dashboard**
+- 👤 Manage personal profile and address  
+- ⏳ Track all request statuses in one place  
+- 📜 View complete transaction history
+
+---
 
 🌱 **Future Enhancements**
 
-- 🔐 **Role-based Admin Dashboard** for better control over users and listings  
-- 💳 **Payment Gateway Integration** for booking and securing deals  
+- 🔐 **Role-based Admin Dashboard** for better control over users and listings 
 - 📲 **Push Notifications / Email Alerts** for buyer-seller updates  
 - 📊 **Analytics Dashboard** for sellers (views, interests, offers)  
-- 📱 **Responsive Progressive Web App (PWA)** version  
 - 📍 **Map Integration** to view cars based on location  
 - 🧠 **AI-based Price Suggestions** for sellers based on similar listings  
+
+---
 
 # Getting Started with Create React App
 
