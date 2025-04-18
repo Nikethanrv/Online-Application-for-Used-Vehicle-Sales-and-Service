@@ -130,9 +130,6 @@ Deploy the application using cloud platforms (e.g., Vercel, Render, or AWS) for 
 Implement a document and identity verification system to validate both vehicle and user authenticity, increasing trust and security.
 
 
-### Sample Screenshots
-
- ![alt text](<img1.jpg>)
  
 
  
