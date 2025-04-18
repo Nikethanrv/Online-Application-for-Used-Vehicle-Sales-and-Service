@@ -122,15 +122,17 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ### Future Work 
 •	Real-time Chat System
 Integrate a live chat system between buyers and sellers for seamless communication and quicker deal closure.
+
 •	Web Hosting & Deployment
 Deploy the application using cloud platforms (e.g., Vercel, Render, or AWS) for public access and scalability.
+
 •	Authenticity Verification
 Implement a document and identity verification system to validate both vehicle and user authenticity, increasing trust and security.
 
 
 ### Sample Screenshots
 
- 
+ ![alt text](<img1.jpg>)
  
 
  
